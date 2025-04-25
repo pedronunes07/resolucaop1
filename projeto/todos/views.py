@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from .models import Todo
 from django.urls import reverse_lazy
 
@@ -12,7 +12,13 @@ class TodoCreateView(CreateView):
     fields = ["title", "deadline"]
     success_url = reverse_lazy("todo_list")
 
+class TodoUpdateView(UpdateView):
+    model = Todo
+    fields = ["title", "deadline"]
+    success_url = reverse_lazy("todo_list")
 
-
+class TodoDeleteView(DeleteView):
+    model = Todo
+    success_url = reverse_lazy("todo_list")
 
 # Create your views here.
