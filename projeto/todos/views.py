@@ -24,7 +24,7 @@ class TodoDeleteView(DeleteView):
 
 # View para a página de serviço
 class TodoServicoView(TemplateView):
-    template_name = "servico.html"  # Defina o template correspondente
+    template_name = 'todos/todo_servico.html'
 
 # View para a página de login
 def login_view(request):
