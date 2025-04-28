@@ -44,7 +44,6 @@
             font-style: oblique;
         }
 
-        /* Centralização da Navbar */
         .Menu {
             list-style-type: none;
             display: flex;
@@ -57,7 +56,6 @@
             margin-top: 32px;
         }
 
-        /* Estilo da imagem da bandeira */
         .bandeira {
             width: 20px;
             height: 14px;
@@ -65,16 +63,13 @@
             vertical-align: middle;
         }
 
-        /* Estilos de título */
         h1 {
             text-align: center;
             font-size: 30px;
-            margin-top: 150px; /* Ajusta a margem para evitar que o título fique escondido atrás da navbar fixa */
-            color: black; /* Cor preta */
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            margin-top: 150px;
+            color: black;
         }
 
-        /* Estilos do formulário de login com fundo de imagem */
         .login-container {
             display: flex;
             justify-content: center;
@@ -98,14 +93,14 @@
 
         .login-form h2 {
             margin-bottom: 20px;
-            color: black; /* Cor preta */
+            color: black;
         }
 
         .login-form label {
             display: block;
             margin: 10px 0 5px;
             text-align: left;
-            color: black; /* Cor preta */
+            color: black;
         }
 
         .login-form input[type="text"],
@@ -121,7 +116,7 @@
             width: 100%;
             padding: 10px;
             background: linear-gradient(72deg, #8956f3 1%, #3DEBB0 99%);
-            color: black; /* Cor preta */
+            color: black;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -137,19 +132,13 @@
         }
 
         .login-links a {
-            color: black; /* Cor preta */
+            color: black;
             text-decoration: none;
             margin: 0 5px;
         }
 
         .login-links a:hover {
             text-decoration: underline;
-        }
-
-        /* Ajustes para o banner */
-        .banner img {
-            width: 100%;
-            height: auto;
         }
     </style>
 </head>
@@ -171,7 +160,6 @@
         <div class="login-form">
             <h2>Login</h2>
 
-            <!-- Formulário de Login -->
             <form id="loginForm">
                 <label for="username">Usuário:</label>
                 <input type="text" id="username" name="username" required><br><br>
@@ -183,7 +171,8 @@
             </form>
 
             <div class="login-links">
-                <a href="#">Esqueceu a senha?</a> | <a href="{% url 'todo_create' %}" class="btn btn-success mb-3">Cadastrar</a>
+                <a href="#">Esqueceu a senha?</a> | 
+                <a href="{% url 'todo_create' %}" class="btn btn-success mb-3">Cadastrar</a>
             </div>
         </div>
     </div>
@@ -194,7 +183,7 @@
     </ul>
 
     <script>
-        // Função para capturar os dados do formulário e exibi-los na lista
+        // Função para capturar os dados do formulário e redirecionar para a página de serviços
         document.getElementById("loginForm").addEventListener("submit", function(event) {
             event.preventDefault(); // Impede o envio do formulário
 
@@ -202,15 +191,10 @@
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            // Cria um novo item na lista com o nome do usuário
-            const userItem = document.createElement("li");
-            userItem.textContent = Usuário: ${username} | Senha: ${password};
+            // Aqui você pode fazer a autenticação com Django (ou simular o login)
 
-            // Adiciona o item na lista de usuários logados
-            document.getElementById("userList").appendChild(userItem);
-
-            // Limpa os campos do formulário
-            document.getElementById("loginForm").reset();
+            // Redireciona para a página de serviços
+            window.location.href = "{% url 'todo_servico' %}";  // Usando o Django URL Tag para redirecionar
         });
     </script>
 
