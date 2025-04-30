@@ -80,8 +80,7 @@
         }
 
         .login-form {
-            background: url('IMG/foto.png') no-repeat center center;
-            background-size: cover;
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -140,6 +139,22 @@
         .login-links a:hover {
             text-decoration: underline;
         }
+
+        .error-message {
+            background-color: #ffdddd;
+            color: #ff0000;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            background-color: #ddffdd;
+            color: #008800;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -147,7 +162,7 @@
     <!-- Barra de navegação -->
     <nav>
         <ul class="Menu">
-            <li><a href="#">Home</a></li>
+            <li><a href="{% url 'login' %}">Home</a></li>
             <li><a href="#">Sobre</a></li>
             <li><a href="#">Contato</a></li>
         </ul>
@@ -160,7 +175,22 @@
         <div class="login-form">
             <h2>Login</h2>
 
-            <form id="loginForm">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if error %}
+                <div class="error-message">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
                 <label for="username">Usuário:</label>
                 <input type="text" id="username" name="username" required><br><br>
 
@@ -172,29 +202,10 @@
 
             <div class="login-links">
                 <a href="#">Esqueceu a senha?</a> | 
-                <a href="{% url 'todo_create' %}" class="btn btn-success mb-3">Cadastrar</a>
+                <a href="{% url 'cadastro' %}">Cadastrar</a>
             </div>
         </div>
     </div>
-
-
-    </ul>
-
-    <script>
-        // Função para capturar os dados do formulário e redirecionar para a página de serviços
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Impede o envio do formulário
-
-            // Captura os valores dos campos de formulário
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-
-            // Aqui você pode fazer a autenticação com Django (ou simular o login)
-
-            // Redireciona para a página de serviços
-            window.location.href = "{% url 'todo_servico' %}";  // Usando o Django URL Tag para redirecionar
-        });
-    </script>
 
 </body>
 </html>

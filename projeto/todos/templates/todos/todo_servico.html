@@ -89,6 +89,31 @@
             max-width: 1200px; /* Limita a largura do conteúdo */
             margin: 0 auto; /* Centraliza o container */
         }
+
+        /* Estilo para o botão de logout */
+        .logout-btn {
+            background: linear-gradient(72deg, #ff5e5e 1%, #ff8956 99%);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        .logout-btn:hover {
+            background: #ff8956;
+        }
+
+        /* Estilo para a mensagem de boas-vindas */
+        .welcome-message {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
     </style>
 </head>
 <body>
@@ -96,27 +121,33 @@
         <div class="flex">
             <nav>
                 <ul>
-                    <li class="nav"><a class="outline" href="../index.html">HOME</a></li>
-                    <li class="nav"><a href="../sobre/sobre.html" class="outline">SOBRE</a></li>
-                    <li class="nav"><a href= "/Users/user/Downloads/site (1) (2)/site (1)/site/subpaginas3/index.html">SERVIÇOS</a></li>
-                    <li class="nav"><a href="../contato/contato.html" class="outline">CONTATO</a></li>
+                    <li class="nav"><a class="outline" href="{% url 'todo_servico' %}">HOME</a></li>
+                    <li class="nav"><a href="#" class="outline">SOBRE</a></li>
+                    <li class="nav"><a href="#">SERVIÇOS</a></li>
+                    <li class="nav"><a href="#" class="outline">CONTATO</a></li>
+                    <li class="nav"><a href="{% url 'logout' %}" class="logout-btn">SAIR</a></li>
                 </ul>
             </nav>
         </div>
+    </div>
+
+    <div class="welcome-message">
+        <h2>Bem-vindo, {{ user.first_name|default:user.username }}!</h2>
+        <p>Você está logado no sistema.</p>
     </div>
 
     <section class="testimonials">
         <div class="container">
             <div class="image-row">
                 <div class="circle">
-                    <a href="../serviços/pagina5/index.html">
-                        <img src="../serviços/imagens/celular.png" alt="">
+                    <a href="#">
+                        <img src="https://via.placeholder.com/300x300?text=Celular" alt="Celular">
                         <h4>FAÇA SEU ORÇAMENTO PELO CELULAR</h4>
                     </a>
                 </div>
                 <div class="casa">
                     <a href="#">
-                        <img src="../serviços/imagens/casa.png" alt="">
+                        <img src="https://via.placeholder.com/300x300?text=Casa" alt="Casa">
                         <h3>FAÇA NO CONFORTO DE SUA CASA</h3>
                     </a>
                 </div>
@@ -126,14 +157,14 @@
 
     <div class="image-row">
         <div class="serviços">
-            <a href="../serviços/armazenamento/index.html">
-                <img src="../serviços/imagens/armazenamento.png" alt="">
+            <a href="#">
+                <img src="https://via.placeholder.com/300x300?text=Armazenamento" alt="Armazenamento">
                 <p>CRIAÇÃO DE ARMAZÉNS</p>
             </a>
         </div>
         <div class="controle">
-            <a href="../serviços/MOVIMENTAÇÃO DE MATERIAL/index.html">
-                <img src="../serviços/imagens/empilhaiera.png" alt="">
+            <a href="#">
+                <img src="https://via.placeholder.com/300x300?text=Empilhadeira" alt="Empilhadeira">
                 <p>CONTROLE DE MOVIMENTAÇÃO DE MATERIAL</p>
             </a>
         </div>
@@ -141,14 +172,14 @@
 
     <div class="image-row">
         <div class="etiqueta">
-            <a href="../serviços/numero de serie/index.html">
-                <img src="../serviços/imagens/etiqueta.png" alt="">
+            <a href="#">
+                <img src="https://via.placeholder.com/300x300?text=Etiqueta" alt="Etiqueta">
                 <p>CRIAÇÃO DE NÚMEROS DE SÉRIE PARA ETIQUETAR OS MATERIAIS</p>
             </a>
         </div>
         <div class="web">
-            <a href="../serviços/GERENCIAMENTO/index.html">
-                <img src="../serviços/imagens/web.png" alt="">
+            <a href="#">
+                <img src="https://via.placeholder.com/300x300?text=Web" alt="Web">
                 <p>GERENCIAMENTO VIA WEB</p>
             </a>
         </div>
