@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -92,7 +93,7 @@
 
         /* Estilo para o botão de logout */
         .logout-btn {
-            background: linear-gradient(72deg, #ff5e5e 1%, #ff8956 99%);
+            background: linear-gradient(72deg,rgb(32, 165, 192) 1%, #8956f3 99%);
             color: white;
             border: none;
             padding: 8px 15px;
@@ -103,7 +104,7 @@
         }
 
         .logout-btn:hover {
-            background: #ff8956;
+            background: #8956f3;
         }
 
         /* Estilo para a mensagem de boas-vindas */
@@ -121,8 +122,7 @@
         <div class="flex">
             <nav>
                 <ul>
-                    <li class="nav"><a class="outline" href="{% url 'todo_servico' %}">HOME</a></li>
-                    <li class="nav"><a href="#" class="outline">SOBRE</a></li>
+                    <li><a class="outline" href="{% url 'sobre' %}">SOBRE</a></li>
                     <li class="nav"><a href="#">SERVIÇOS</a></li>
                     <li class="nav"><a href="#" class="outline">CONTATO</a></li>
                     <li class="nav"><a href="{% url 'logout' %}" class="logout-btn">SAIR</a></li>
@@ -141,13 +141,13 @@
             <div class="image-row">
                 <div class="circle">
                     <a href="#">
-                        <img src="https://via.placeholder.com/300x300?text=Celular" alt="Celular">
+                        <img src="{% static "imagens/celular.png" %}" alt="Celular">
                         <h4>FAÇA SEU ORÇAMENTO PELO CELULAR</h4>
                     </a>
                 </div>
                 <div class="casa">
                     <a href="#">
-                        <img src="https://via.placeholder.com/300x300?text=Casa" alt="Casa">
+                        <img src="{% static "imagens/casa.png" %}" alt="Casa">
                         <h3>FAÇA NO CONFORTO DE SUA CASA</h3>
                     </a>
                 </div>
@@ -158,13 +158,13 @@
     <div class="image-row">
         <div class="serviços">
             <a href="#">
-                <img src="https://via.placeholder.com/300x300?text=Armazenamento" alt="Armazenamento">
+                <img src="{% static "imagens/armazenamento.png" %}" alt="Armazenamento">
                 <p>CRIAÇÃO DE ARMAZÉNS</p>
             </a>
         </div>
         <div class="controle">
             <a href="#">
-                <img src="https://via.placeholder.com/300x300?text=Empilhadeira" alt="Empilhadeira">
+                <img src="{% static "imagens/empilhaiera.png" %}" alt="Empilhadeira">
                 <p>CONTROLE DE MOVIMENTAÇÃO DE MATERIAL</p>
             </a>
         </div>
@@ -173,13 +173,13 @@
     <div class="image-row">
         <div class="etiqueta">
             <a href="#">
-                <img src="https://via.placeholder.com/300x300?text=Etiqueta" alt="Etiqueta">
+                <img src="{% static "imagens/etiqueta.png" %}" alt="Etiqueta">
                 <p>CRIAÇÃO DE NÚMEROS DE SÉRIE PARA ETIQUETAR OS MATERIAIS</p>
             </a>
         </div>
         <div class="web">
             <a href="#">
-                <img src="https://via.placeholder.com/300x300?text=Web" alt="Web">
+                <img src="{% static "imagens/web.png" %}" alt="Web">
                 <p>GERENCIAMENTO VIA WEB</p>
             </a>
         </div>

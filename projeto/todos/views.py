@@ -94,3 +94,6 @@ def cadastro_view(request):
             return render(request, 'todos/cadastro.html', {'error': f'Erro ao criar usuário: {str(e)}'})
     
     return render(request, 'todos/cadastro.html')
+
+def sobre_view(request):
+    return render(request, 'todos/sobre.html')
