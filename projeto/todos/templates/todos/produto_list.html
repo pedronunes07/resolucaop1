@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilização do corpo */
+        body {
+            background: linear-gradient(72deg, #3DEBB0 1%, #8956f3 99%);
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 20px; /* Tamanho de fonte consistente em todo o site */
+            text-align: center; /* Centraliza todo o texto no corpo */
+        }
+
+        /* Estilo da barra de navegação */
+        .navbar {
+            background: linear-gradient(72deg, #8956f3 1%, #3DEBB0 99%);
+            height: 70px;
+            padding: 0 20px;
+            margin: 20px auto; /* Centraliza a navbar */
+        }
+
+        .navbar .flex {
+            display: flex;
+            justify-content: center; /* Centraliza os itens na navbar */
+            align-items: center;
+            height: 100%;
+        }
+
+        .navbar ul {
+            display: flex;
+            margin: 0; /* Remove margens */
+        }
+
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            padding: 9px;
+            margin: 0 10px;
+        }
+
+        /* Estilo dos cartões */
+        .card {
+            background: linear-gradient(72deg, #8956f3 1%, #3DEBB0 99%);
+            height: 500px;
+            margin: 20px auto; /* Centraliza o cartão */
+        }
+
+        /* Estilo das seções com imagens lado a lado */
+        .image-row {
+            display: flex; /* Usa flexbox para exibir imagens lado a lado */
+            justify-content: center; /* Centraliza as divs dentro da linha de imagem */
+            margin: 20px 0; /* Espaçamento entre seções */
+        }
+
+        /* Estilo das imagens */
+        .image-row div {
+            flex: 1; /* Cada div ocupará espaço igual */
+            max-width: 300px; /* Largura máxima para as imagens */
+            margin: 0 10px; /* Espaçamento entre imagens */
+        }
+
+        .image-row img {
+            width: 100%; /* Responsivo */
+            height: 300px; /* Altura fixa para uniformidade */
+            object-fit: cover; /* Mantém a proporção e cobre o espaço */
+        }
+
+        /* Estilo dos títulos e parágrafos */
+        h1, h3, h4, p {
+            margin: 20px 0; /* Espaçamento vertical */
+            font-size: 20px; /* Tamanho de fonte consistente */
+        }
+
+        /* Estilo de lista */
+        ul {
+            list-style-type: none;
+        }
+
+        /* Centralização de conteúdo */
+        .container {
+            max-width: 1200px; /* Limita a largura do conteúdo */
+            margin: 0 auto; /* Centraliza o container */
+        }
+
+        /* Estilo para o botão de logout */
+        .logout-btn {
+            background: linear-gradient(72deg,rgb(32, 165, 192) 1%, #8956f3 99%);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        .logout-btn:hover {
+            background: #8956f3;
+        }
+
+        /* Estilo para a mensagem de boas-vindas */
+        .welcome-message {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="flex">
+            <nav>
+                <ul>
+                    <li><a class="outline" href="{% url 'sobre' %}">SOBRE</a></li>
+                    <li class="nav"><a href="#">SERVIÇOS</a></li>
+                    <li class="nav"><a href="#" class="outline">CONTATO</a></li>
+                    <li class="nav"><a href="{% url 'logout' %}" class="logout-btn">SAIR</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="welcome-message">
+        <h2>Bem-vindo, {{ user.first_name|default:user.username }}!</h2>
+        <p>Você está logado no sistema.</p>
+    </div>
+
+    <h1>Lista de Produtos</h1>
+    <ul>
+        {% for produto in produtos %}
+            <li>{{ produto.nome }} - Quantidade: {{ produto.quantidade }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html> 

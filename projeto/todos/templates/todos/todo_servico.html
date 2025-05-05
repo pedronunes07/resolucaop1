@@ -1,4 +1,5 @@
 {% load static %}
+{% asdflkj %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -118,6 +119,7 @@
     </style>
 </head>
 <body>
+    <h1 style="color: red;">TESTE DE MODIFICAÇÃO</h1>
     <div class="navbar">
         <div class="flex">
             <nav>
@@ -134,6 +136,10 @@
     <div class="welcome-message">
         <h2>Bem-vindo, {{ user.first_name|default:user.username }}!</h2>
         <p>Você está logado no sistema.</p>
+        <ul>
+            <li><a href="{% url 'produto_list' %}">Lista de Produtos</a></li>
+            <li><a href="{% url 'produto_create' %}">Adicionar Produto</a></li>
+        </ul>
     </div>
 
     <section class="testimonials">

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .models import Todo
+from .models import Todo, Produto
 
 # Views existentes
 class TodoListView(ListView):
@@ -97,3 +97,24 @@ def cadastro_view(request):
 
 def sobre_view(request):
     return render(request, 'todos/sobre.html')
+
+class ProdutoListView(ListView):
+    model = Produto
+    template_name = 'todos/produto_list.html'
+
+class ProdutoCreateView(CreateView):
+    model = Produto
+    fields = ["nome", "quantidade"]
+    success_url = reverse_lazy("produto_list")
+    template_name = 'todos/produto_form.html'
+
+class ProdutoUpdateView(UpdateView):
+    model = Produto
+    fields = ["nome", "quantidade"]
+    success_url = reverse_lazy("produto_list")
+    template_name = 'todos/produto_form.html'
+
+class ProdutoDeleteView(DeleteView):
+    model = Produto
+    success_url = reverse_lazy("produto_list")
+    template_name = 'todos/produto_confirm_delete.html'
