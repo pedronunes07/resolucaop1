@@ -16,10 +16,11 @@
         /* Estilização do corpo */
         body {
             background: linear-gradient(72deg, #3DEBB0 1%, #8956f3 99%);
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 20px;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 18px;
             text-align: center;
             min-height: 100vh;
+            color: black;
         }
 
         /* Estilo da barra de navegação */
@@ -51,6 +52,8 @@
             padding: 9px;
             margin: 0 10px;
             transition: all 0.3s ease;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 18px;
         }
 
         .navbar a:hover {
@@ -90,31 +93,25 @@
         }
 
         /* Estilo dos botões de ação */
-        .action-btn {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        button, .btn, .action-btn, .back-btn, .logout-btn {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 18px;
             font-weight: bold;
-            margin: 0 5px;
-            transition: all 0.3s ease;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 6px;
+            background: linear-gradient(72deg, #3DEBB0 1%, #8956f3 99%);
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s, transform 0.2s, opacity 0.2s;
             text-decoration: none;
             display: inline-block;
         }
-
-        .edit-btn {
-            background: linear-gradient(72deg, #3DEBB0 1%, #8956f3 99%);
-            color: white;
-        }
-
-        .delete-btn {
-            background: linear-gradient(72deg, #ff6b6b 1%, #ff4757 99%);
-            color: white;
-        }
-
-        .action-btn:hover {
+        button:hover, .btn:hover, .action-btn:hover, .back-btn:hover, .logout-btn:hover {
+            background: linear-gradient(72deg, #8956f3 1%, #3DEBB0 99%);
+            color: #fff;
             transform: scale(1.05);
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
         /* Estilo para a mensagem de boas-vindas */
@@ -166,6 +163,11 @@
         .back-btn:hover {
             transform: scale(1.05);
             opacity: 0.9;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: bold;
         }
     </style>
 </head>
