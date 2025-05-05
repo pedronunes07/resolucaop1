@@ -10,14 +10,16 @@
         * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         /* Estilização do corpo */
         body {
             background: linear-gradient(72deg, #3DEBB0 1%, #8956f3 99%);
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 20px; /* Tamanho de fonte consistente em todo o site */
-            text-align: center; /* Centraliza todo o texto no corpo */
+            font-size: 20px;
+            text-align: center;
+            min-height: 100vh;
         }
 
         /* Estilo da barra de navegação */
@@ -25,19 +27,22 @@
             background: linear-gradient(72deg, #8956f3 1%, #3DEBB0 99%);
             height: 70px;
             padding: 0 20px;
-            margin: 20px auto; /* Centraliza a navbar */
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .navbar .flex {
             display: flex;
-            justify-content: center; /* Centraliza os itens na navbar */
+            justify-content: center;
             align-items: center;
             height: 100%;
         }
 
         .navbar ul {
             display: flex;
-            margin: 0; /* Remove margens */
+            margin: 0;
+            list-style: none;
         }
 
         .navbar a {
@@ -45,75 +50,122 @@
             text-decoration: none;
             padding: 9px;
             margin: 0 10px;
+            transition: all 0.3s ease;
         }
 
-        /* Estilo dos cartões */
-        .card {
+        .navbar a:hover {
+            color: #3DEBB0;
+        }
+
+        /* Estilo da tabela de produtos */
+        .produtos-table {
+            width: 90%;
+            max-width: 1000px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .produtos-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .produtos-table th,
+        .produtos-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .produtos-table th {
             background: linear-gradient(72deg, #8956f3 1%, #3DEBB0 99%);
-            height: 500px;
-            margin: 20px auto; /* Centraliza o cartão */
-        }
-
-        /* Estilo das seções com imagens lado a lado */
-        .image-row {
-            display: flex; /* Usa flexbox para exibir imagens lado a lado */
-            justify-content: center; /* Centraliza as divs dentro da linha de imagem */
-            margin: 20px 0; /* Espaçamento entre seções */
-        }
-
-        /* Estilo das imagens */
-        .image-row div {
-            flex: 1; /* Cada div ocupará espaço igual */
-            max-width: 300px; /* Largura máxima para as imagens */
-            margin: 0 10px; /* Espaçamento entre imagens */
-        }
-
-        .image-row img {
-            width: 100%; /* Responsivo */
-            height: 300px; /* Altura fixa para uniformidade */
-            object-fit: cover; /* Mantém a proporção e cobre o espaço */
-        }
-
-        /* Estilo dos títulos e parágrafos */
-        h1, h3, h4, p {
-            margin: 20px 0; /* Espaçamento vertical */
-            font-size: 20px; /* Tamanho de fonte consistente */
-        }
-
-        /* Estilo de lista */
-        ul {
-            list-style-type: none;
-        }
-
-        /* Centralização de conteúdo */
-        .container {
-            max-width: 1200px; /* Limita a largura do conteúdo */
-            margin: 0 auto; /* Centraliza o container */
-        }
-
-        /* Estilo para o botão de logout */
-        .logout-btn {
-            background: linear-gradient(72deg,rgb(32, 165, 192) 1%, #8956f3 99%);
             color: white;
-            border: none;
+        }
+
+        .produtos-table tr:hover {
+            background-color: rgba(137, 86, 243, 0.1);
+        }
+
+        /* Estilo dos botões de ação */
+        .action-btn {
             padding: 8px 15px;
+            border: none;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
-            margin-left: 20px;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .logout-btn:hover {
-            background: #8956f3;
+        .edit-btn {
+            background: linear-gradient(72deg, #3DEBB0 1%, #8956f3 99%);
+            color: white;
+        }
+
+        .delete-btn {
+            background: linear-gradient(72deg, #ff6b6b 1%, #ff4757 99%);
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
         }
 
         /* Estilo para a mensagem de boas-vindas */
         .welcome-message {
             background-color: rgba(255, 255, 255, 0.7);
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
             margin: 20px auto;
             max-width: 600px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Estilo para mensagens do sistema */
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .messages li {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .success {
+            color: #2ecc71;
+        }
+
+        .error {
+            color: #e74c3c;
+        }
+
+        /* Botão de voltar */
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(72deg, #3DEBB0 1%, #8956f3 99%);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -122,10 +174,10 @@
         <div class="flex">
             <nav>
                 <ul>
-                    <li><a class="outline" href="{% url 'sobre' %}">SOBRE</a></li>
-                    <li class="nav"><a href="#">SERVIÇOS</a></li>
-                    <li class="nav"><a href="#" class="outline">CONTATO</a></li>
-                    <li class="nav"><a href="{% url 'logout' %}" class="logout-btn">SAIR</a></li>
+                    <li><a href="{% url 'sobre' %}">SOBRE</a></li>
+                    <li><a href="{% url 'todo_servico' %}">SERVIÇOS</a></li>
+                    <li><a href="#">CONTATO</a></li>
+                    <li><a href="{% url 'logout' %}" class="logout-btn">SAIR</a></li>
                 </ul>
             </nav>
         </div>
@@ -133,14 +185,45 @@
 
     <div class="welcome-message">
         <h2>Bem-vindo, {{ user.first_name|default:user.username }}!</h2>
-        <p>Você está logado no sistema.</p>
+        <p>Lista de Produtos</p>
     </div>
 
-    <h1>Lista de Produtos</h1>
-    <ul>
-        {% for produto in produtos %}
-            <li>{{ produto.nome }} - Quantidade: {{ produto.quantidade }}</li>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
     </ul>
+    {% endif %}
+
+    <div class="produtos-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in object_list %}
+                <tr>
+                    <td>{{ produto.nome }}</td>
+                    <td>{{ produto.quantidade }}</td>
+                    <td>
+                        <a href="{% url 'produto_update' produto.pk %}" class="action-btn edit-btn">Editar</a>
+                        <a href="{% url 'produto_delete' produto.pk %}" class="action-btn delete-btn">Excluir</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Nenhum produto cadastrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{% url 'todo_servico' %}" class="back-btn">Voltar para Serviços</a>
 </body>
 </html> 

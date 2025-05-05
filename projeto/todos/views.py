@@ -108,13 +108,28 @@ class ProdutoCreateView(CreateView):
     success_url = reverse_lazy("produto_list")
     template_name = 'todos/produto_form.html'
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Produto criado com sucesso!')
+        return response
+
 class ProdutoUpdateView(UpdateView):
     model = Produto
     fields = ["nome", "quantidade"]
     success_url = reverse_lazy("produto_list")
     template_name = 'todos/produto_form.html'
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Produto atualizado com sucesso!')
+        return response
+
 class ProdutoDeleteView(DeleteView):
     model = Produto
     success_url = reverse_lazy("produto_list")
     template_name = 'todos/produto_confirm_delete.html'
+
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        messages.success(request, 'Produto excluído com sucesso!')
+        return response

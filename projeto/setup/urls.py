@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from todos import views
 from todos.views import (
-    TodoListView, TodoCreateView, TodoUpdateView, TodoDeleteView
+    TodoListView, TodoCreateView, TodoUpdateView, TodoDeleteView,
+    ProdutoListView, ProdutoCreateView, ProdutoUpdateView, ProdutoDeleteView
 )
 
 urlpatterns = [
@@ -16,4 +17,10 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),  # Logout
     path('cadastro/', views.cadastro_view, name='cadastro'),  # Cadastro de usuário
     path('sobre/', views.sobre_view, name='sobre'),  # Página "Sobre" (novamente, você deve adicionar a view)
+    
+    # URLs para Produtos
+    path('produtos/', ProdutoListView.as_view(), name='produto_list'),
+    path('produtos/novo/', ProdutoCreateView.as_view(), name='produto_create'),
+    path('produtos/<int:pk>/editar/', ProdutoUpdateView.as_view(), name='produto_update'),
+    path('produtos/<int:pk>/remover/', ProdutoDeleteView.as_view(), name='produto_delete'),
 ]
