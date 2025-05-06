@@ -203,6 +203,7 @@
             <thead>
                 <tr>
                     <th>Nome</th>
+                    <th>Número de série</th>
                     <th>Quantidade</th>
                     <th>Ações</th>
                 </tr>
@@ -211,6 +212,7 @@
                 {% for produto in object_list %}
                 <tr>
                     <td>{{ produto.nome }}</td>
+                    <td>{{ produto.numero_serie }}</td>
                     <td>{{ produto.quantidade }}</td>
                     <td>
                         <a href="{% url 'produto_update' produto.pk %}" class="action-btn edit-btn">Editar</a>
@@ -219,13 +221,13 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="3">Nenhum produto cadastrado.</td>
+                    <td colspan="4">Nenhum produto cadastrado.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <a href="{% url 'todo_servico' %}" class="back-btn">Voltar para Serviços</a>
+    <a href="{% url 'produto_create' %}" class="back-btn">Adicionar Produto</a>
 </body>
 </html> 

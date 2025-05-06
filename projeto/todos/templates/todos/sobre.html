@@ -161,17 +161,59 @@
             transform: scale(1.05);
             opacity: 0.95;
         }
+
+        /* Estilo da barra de navegação */
+        .navbar {
+            background: linear-gradient(72deg, #8956f3 1%, #3DEBB0 99%);
+            height: 70px;
+            padding: 0 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .navbar .flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .navbar ul {
+            display: flex;
+            margin: 0;
+            list-style: none;
+        }
+
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            padding: 9px;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            color: #3DEBB0;
+        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <ul class="Menu">
-            <li><a class="outline" href="{% url 'todo_servico' %}">HOME</a></li>
-            <li><a class="outline" href="#">SOBRE</a></li>
-            <li><a class="">CONTATO</a></li>
-        </ul>   
-    </nav>
+    <div class="navbar">
+        <div class="flex">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'login' %}">HOME</a></li>
+                    <li><a href="{% url 'produto_list' %}">PRODUTOS</a></li>
+                    <li><a href="#">SOBRE</a></li>
+                    <li><a href="#">CONTATO</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
     <div class="content">
         <div class="slides">

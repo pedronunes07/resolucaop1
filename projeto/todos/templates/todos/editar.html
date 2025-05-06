@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Editar Produto</title>
     <style>
         /* Reset básico */
         * {
@@ -60,8 +60,8 @@
             color: #3DEBB0;
         }
 
-        /* Estilo do formulário de cadastro */
-        .cadastro-container {
+        /* Estilo do formulário */
+        .form-container {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -72,7 +72,7 @@
             padding: 20px;
         }
 
-        .cadastro-form {
+        .form {
             background-color: rgba(255, 255, 255, 0.9);
             padding: 40px;
             border-radius: 8px;
@@ -82,14 +82,14 @@
             text-align: center;
         }
 
-        .cadastro-form h2 {
+        .form h2 {
             margin-bottom: 20px;
             color: black;
             font-family: 'Montserrat', Arial, sans-serif;
             font-size: 24px;
         }
 
-        .cadastro-form label {
+        .form label {
             display: block;
             margin: 10px 0 5px;
             text-align: left;
@@ -98,11 +98,9 @@
             font-size: 18px;
         }
 
-        .cadastro-form input[type="text"],
-        .cadastro-form input[type="email"],
-        .cadastro-form input[type="password"],
-        .cadastro-form input[type="date"],
-        .cadastro-form select {
+        .form input[type="text"],
+        .form input[type="number"],
+        .form textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
@@ -112,8 +110,8 @@
             font-family: 'Montserrat', Arial, sans-serif;
         }
 
-        /* Estilo para o botão de cadastro */
-        .cadastro-form button {
+        /* Estilo para o botão */
+        .form button {
             width: 100%;
             padding: 10px;
             background: linear-gradient(72deg, #8956f3 1%, #3DEBB0 99%);
@@ -127,34 +125,9 @@
             transition: background 0.3s ease;
         }
 
-        .cadastro-form button:hover {
+        .form button:hover {
             background: #3DEBB0;
             color: black;
-        }
-
-        .cadastro-links {
-            margin-top: 10px;
-            font-size: 16px;
-            font-family: 'Montserrat', Arial, sans-serif;
-        }
-
-        .cadastro-links a {
-            color: black;
-            text-decoration: none;
-        }
-
-        .cadastro-links a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            background-color: #ffdddd;
-            color: #ff0000;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            font-family: 'Montserrat', Arial, sans-serif;
-            font-size: 16px;
         }
 
         /* Estilo para mensagens do sistema */
@@ -203,12 +176,12 @@
         </div>
     </div>
 
-    <h1>Cadastro</h1>
+    <h1>Editar Produto</h1>
     
-    <div class="cadastro-container">
-        <form class="cadastro-form" method="POST" action="{% url 'cadastro' %}">
+    <div class="form-container">
+        <form class="form" method="POST" action="{% url 'editar' produto.id %}">
             {% csrf_token %}
-            <h2>Preencha seus dados</h2>
+            <h2>Edite os dados do produto</h2>
 
             {% if error %}
                 <div class="error-message">
@@ -216,44 +189,20 @@
                 </div>
             {% endif %}
 
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
+            <label for="nome">Nome do Produto:</label>
+            <input type="text" id="nome" name="nome" value="{{ produto.nome }}" required>
 
-            <label for="nome-usuario">Nome de Usuário:</label>
-            <input type="text" id="nome-usuario" name="nome-usuario" required placeholder="Digite seu nome de usuário">
+            <label for="numero_serie">Número de Série:</label>
+            <input type="text" id="numero_serie" name="numero_serie" value="{{ produto.numero_serie }}" required>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" name="quantidade" value="{{ produto.quantidade }}" required min="0">
 
-            <label for="cpf">CPF:</label>
-            <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF">
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" rows="4">{{ produto.descricao }}</textarea>
 
-            <label for="endereco">Endereço:</label>
-            <input type="text" id="endereco" name="endereco" placeholder="Digite seu endereço">
-
-            <label for="data-nascimento">Data de Nascimento:</label>
-            <input type="date" id="data-nascimento" name="data-nascimento">
-
-            <label for="sexo">Sexo:</label>
-            <select id="sexo" name="sexo">
-                <option value="">Selecione</option>
-                <option value="masculino">Masculino</option>
-                <option value="feminino">Feminino</option>
-                <option value="outro">Outro</option>
-            </select>
-
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required>
-
-            <label for="confirmar-senha">Confirmar Senha:</label>
-            <input type="password" id="confirmar-senha" name="confirmar-senha" required>
-
-            <button type="submit">Cadastrar</button>
+            <button type="submit">Salvar Alterações</button>
         </form>
     </div>
-
-    <div class="cadastro-links">
-        <a href="{% url 'login' %}">Já tem uma conta? Faça login</a>
-    </div>
 </body>
-</html>
+</html> 
