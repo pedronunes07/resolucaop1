@@ -10,5 +10,6 @@ class Produto(models.Model):
 	nome = models.CharField(max_length=100, null=False, blank=False)
 	numero_serie = models.CharField(max_length=50, null=False, blank=False)
 	quantidade = models.IntegerField(null=False, blank=False)
+	imagem = models.ImageField(upload_to='produtos/', null=True, blank=True)
 
 # Create your models here.
