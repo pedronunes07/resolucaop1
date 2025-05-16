@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
-from .models import Todo, Produto
+from django.db.models import Sum, F
+from django.utils import timezone
+from .models import Todo, Produto, Categoria, Fornecedor, MovimentacaoEstoque
 
 # Views existentes
 class TodoListView(ListView):
@@ -133,3 +135,136 @@ class ProdutoDeleteView(DeleteView):
         response = super().delete(request, *args, **kwargs)
         messages.success(request, 'Produto excluído com sucesso!')
         return response
+
+# Views para Categoria
+class CategoriaListView(ListView):
+    model = Categoria
+    template_name = 'todos/categoria_list.html'
+    context_object_name = 'categorias'
+
+class CategoriaCreateView(CreateView):
+    model = Categoria
+    fields = ['nome', 'descricao']
+    success_url = reverse_lazy('categoria_list')
+    template_name = 'todos/categoria_form.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Categoria criada com sucesso!')
+        return response
+
+class CategoriaUpdateView(UpdateView):
+    model = Categoria
+    fields = ['nome', 'descricao']
+    success_url = reverse_lazy('categoria_list')
+    template_name = 'todos/categoria_form.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Categoria atualizada com sucesso!')
+        return response
+
+class CategoriaDeleteView(DeleteView):
+    model = Categoria
+    success_url = reverse_lazy('categoria_list')
+    template_name = 'todos/categoria_confirm_delete.html'
+
+# Views para Fornecedor
+class FornecedorListView(ListView):
+    model = Fornecedor
+    template_name = 'todos/fornecedor_list.html'
+    context_object_name = 'fornecedores'
+
+class FornecedorCreateView(CreateView):
+    model = Fornecedor
+    fields = ['nome', 'cnpj', 'telefone', 'email', 'endereco']
+    success_url = reverse_lazy('fornecedor_list')
+    template_name = 'todos/fornecedor_form.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Fornecedor cadastrado com sucesso!')
+        return response
+
+class FornecedorUpdateView(UpdateView):
+    model = Fornecedor
+    fields = ['nome', 'cnpj', 'telefone', 'email', 'endereco']
+    success_url = reverse_lazy('fornecedor_list')
+    template_name = 'todos/fornecedor_form.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Fornecedor atualizado com sucesso!')
+        return response
+
+class FornecedorDeleteView(DeleteView):
+    model = Fornecedor
+    success_url = reverse_lazy('fornecedor_list')
+    template_name = 'todos/fornecedor_confirm_delete.html'
+
+# Views para Movimentação de Estoque
+class MovimentacaoEstoqueListView(ListView):
+    model = MovimentacaoEstoque
+    template_name = 'todos/movimentacao_list.html'
+    context_object_name = 'movimentacoes'
+    ordering = ['-data']
+
+@login_required
+def movimentacao_estoque_create(request):
+    if request.method == 'POST':
+        produto_id = request.POST.get('produto')
+        tipo = request.POST.get('tipo')
+        quantidade = int(request.POST.get('quantidade'))
+        observacao = request.POST.get('observacao')
+        
+        produto = get_object_or_404(Produto, id=produto_id)
+        
+        if tipo == 'SAIDA' and quantidade > produto.quantidade:
+            messages.error(request, 'Quantidade insuficiente em estoque!')
+            return redirect('movimentacao_create')
+        
+        movimentacao = MovimentacaoEstoque.objects.create(
+            produto=produto,
+            tipo=tipo,
+            quantidade=quantidade,
+            observacao=observacao,
+            usuario=request.user
+        )
+        
+        # Atualiza a quantidade do produto
+        if tipo == 'ENTRADA':
+            produto.quantidade += quantidade
+        else:
+            produto.quantidade -= quantidade
+        
+        produto.save()
+        messages.success(request, 'Movimentação registrada com sucesso!')
+        return redirect('movimentacao_list')
+    
+    produtos = Produto.objects.filter(ativo=True)
+    return render(request, 'todos/movimentacao_form.html', {'produtos': produtos})
+
+# Dashboard
+@login_required
+def dashboard(request):
+    total_produtos = Produto.objects.count()
+    total_valor_estoque = Produto.objects.aggregate(
+        total=Sum(F('quantidade') * F('preco_custo'))
+    )['total'] or 0
+    
+    produtos_baixo_estoque = Produto.objects.filter(
+        quantidade__lte=F('quantidade_minima')
+    ).count()
+    
+    ultimas_movimentacoes = MovimentacaoEstoque.objects.select_related(
+        'produto', 'usuario'
+    ).order_by('-data')[:5]
+    
+    context = {
+        'total_produtos': total_produtos,
+        'total_valor_estoque': total_valor_estoque,
+        'produtos_baixo_estoque': produtos_baixo_estoque,
+        'ultimas_movimentacoes': ultimas_movimentacoes,
+    }
+    
+    return render(request, 'todos/dashboard.html', context)

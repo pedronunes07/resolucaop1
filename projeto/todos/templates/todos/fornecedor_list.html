@@ -4,9 +4,9 @@
 {% block content %}
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="mb-0">Produtos</h1>
-        <a href="{% url 'produto_create' %}" class="btn btn-primary btn-lg">
-            <i class="fas fa-plus"></i> Novo Produto
+        <h1 class="mb-0">Fornecedores</h1>
+        <a href="{% url 'fornecedor_create' %}" class="btn btn-info btn-lg">
+            <i class="fas fa-truck"></i> Novo Fornecedor
         </a>
     </div>
 
@@ -17,33 +17,27 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Número de Série</th>
-                            <th>Quantidade</th>
-                            <th>Preço</th>
-                            <th>Status</th>
+                            <th>CNPJ</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Endereço</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for produto in object_list %}
+                        {% for fornecedor in fornecedores %}
                         <tr>
-                            <td>{{ produto.nome }}</td>
-                            <td>{{ produto.numero_serie }}</td>
-                            <td>{{ produto.quantidade }}</td>
-                            <td>R$ {{ produto.preco_venda }}</td>
-                            <td>
-                                {% if produto.ativo %}
-                                <span class="badge bg-success">Ativo</span>
-                                {% else %}
-                                <span class="badge bg-danger">Inativo</span>
-                                {% endif %}
-                            </td>
+                            <td>{{ fornecedor.nome }}</td>
+                            <td>{{ fornecedor.cnpj|default:"-" }}</td>
+                            <td>{{ fornecedor.telefone|default:"-" }}</td>
+                            <td>{{ fornecedor.email|default:"-" }}</td>
+                            <td>{{ fornecedor.endereco|default:"-" }}</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <a href="{% url 'produto_update' produto.pk %}" class="btn btn-warning btn-sm">
+                                    <a href="{% url 'fornecedor_update' fornecedor.pk %}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i> Editar
                                     </a>
-                                    <a href="{% url 'produto_delete' produto.pk %}" class="btn btn-danger btn-sm">
+                                    <a href="{% url 'fornecedor_delete' fornecedor.pk %}" class="btn btn-danger btn-sm">
                                         <i class="fas fa-trash"></i> Excluir
                                     </a>
                                 </div>
@@ -52,7 +46,7 @@
                         {% empty %}
                         <tr>
                             <td colspan="6" class="text-center">
-                                Nenhum produto cadastrado.
+                                Nenhum fornecedor cadastrado.
                             </td>
                         </tr>
                         {% endfor %}

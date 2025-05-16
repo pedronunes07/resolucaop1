@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Dashboard</h1>
+    
+    <!-- Cards Informativos -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total de Produtos</h5>
+                    <p class="card-text display-4">{{ total_produtos }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Valor Total em Estoque</h5>
+                    <p class="card-text display-4">R$ {{ total_valor_estoque|floatformat:2 }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Produtos com Estoque Baixo</h5>
+                    <p class="card-text display-4">{{ produtos_baixo_estoque }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Últimas Movimentações -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Últimas Movimentações</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Produto</th>
+                            <th>Tipo</th>
+                            <th>Quantidade</th>
+                            <th>Usuário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mov in ultimas_movimentacoes %}
+                        <tr>
+                            <td>{{ mov.data|date:"d/m/Y H:i" }}</td>
+                            <td>{{ mov.produto.nome }}</td>
+                            <td>
+                                {% if mov.tipo == 'ENTRADA' %}
+                                <span class="badge bg-success">Entrada</span>
+                                {% else %}
+                                <span class="badge bg-danger">Saída</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ mov.quantidade }}</td>
+                            <td>{{ mov.usuario.username }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">Nenhuma movimentação registrada.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ações Rápidas -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Ações Rápidas</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <a href="{% url 'produto_create' %}" class="btn btn-primary btn-block w-100">
+                                <i class="fas fa-plus"></i> Novo Produto
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="{% url 'movimentacao_create' %}" class="btn btn-success btn-block w-100">
+                                <i class="fas fa-exchange-alt"></i> Nova Movimentação
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="{% url 'fornecedor_create' %}" class="btn btn-info btn-block w-100">
+                                <i class="fas fa-truck"></i> Novo Fornecedor
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <a href="{% url 'categoria_create' %}" class="btn btn-secondary btn-block w-100">
+                                <i class="fas fa-tags"></i> Nova Categoria
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

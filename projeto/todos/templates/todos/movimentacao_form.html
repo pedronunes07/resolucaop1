@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Nova Movimentação de Estoque</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="produto" class="form-label">Produto</label>
+                            <select name="produto" id="produto" class="form-select" required>
+                                <option value="">Selecione um produto</option>
+                                {% for produto in produtos %}
+                                <option value="{{ produto.id }}">
+                                    {{ produto.nome }} (Estoque: {{ produto.quantidade }})
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tipo" class="form-label">Tipo de Movimentação</label>
+                            <select name="tipo" id="tipo" class="form-select" required>
+                                <option value="">Selecione o tipo</option>
+                                <option value="ENTRADA">Entrada</option>
+                                <option value="SAIDA">Saída</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="quantidade" class="form-label">Quantidade</label>
+                            <input type="number" name="quantidade" id="quantidade" 
+                                   class="form-control" min="1" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="observacao" class="form-label">Observação</label>
+                            <textarea name="observacao" id="observacao" 
+                                      class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                Registrar Movimentação
+                            </button>
+                            <a href="{% url 'movimentacao_list' %}" class="btn btn-secondary">
+                                Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const produtoSelect = document.getElementById('produto');
+    const quantidadeInput = document.getElementById('quantidade');
+    const tipoSelect = document.getElementById('tipo');
+
+    tipoSelect.addEventListener('change', function() {
+        if (this.value === 'SAIDA') {
+            const selectedOption = produtoSelect.options[produtoSelect.selectedIndex];
+            const estoqueAtual = parseInt(selectedOption.text.match(/Estoque: (\d+)/)[1]);
+            quantidadeInput.max = estoqueAtual;
+        } else {
+            quantidadeInput.removeAttribute('max');
+        }
+    });
+
+    produtoSelect.addEventListener('change', function() {
+        if (tipoSelect.value === 'SAIDA') {
+            const selectedOption = this.options[this.selectedIndex];
+            const estoqueAtual = parseInt(selectedOption.text.match(/Estoque: (\d+)/)[1]);
+            quantidadeInput.max = estoqueAtual;
+        }
+    });
+});
+</script>
+{% endblock %}
+{% endblock %} 
