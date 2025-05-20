@@ -3,12 +3,6 @@ from django.core.validators import MinValueValidator
 from decimal import Decimal
 from django.utils import timezone
 
-class Todo(models.Model):
-	title = models.CharField(max_length=100, null=False, blank=False)
-	created_at =models.DateField(auto_now_add=True,null=False,blank=False)
-	deadline = models.DateField(null=False, blank=False)
-	finished_at = models.DateField(null=True)
-
 class Categoria(models.Model):
 	nome = models.CharField(max_length=100, null=False, blank=False)
 	descricao = models.TextField(null=True, blank=True)

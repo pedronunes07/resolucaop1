@@ -7,34 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.db.models import Sum, F
 from django.utils import timezone
-from .models import Todo, Produto, Categoria, Fornecedor, MovimentacaoEstoque
-
-# Views existentes
-class TodoListView(ListView):
-    model = Todo
-    template_name = 'todos/todo_list.html'
-
-class TodoCreateView(CreateView):
-    model = Todo
-    fields = ["title", "deadline"]
-    success_url = reverse_lazy("todo_list")
-    template_name = 'todos/todo_form.html'
-
-class TodoUpdateView(UpdateView):
-    model = Todo
-    fields = ["title", "deadline"]
-    success_url = reverse_lazy("todo_list")
-    template_name = 'todos/todo_form.html'
-
-class TodoDeleteView(DeleteView):
-    model = Todo
-    success_url = reverse_lazy("todo_list")
-    template_name = 'todos/todo_confirm_delete.html'
-
-# View para a página de serviço (protegida por login)
-@login_required(login_url='/login/')
-def todo_servico_view(request):
-    return render(request, 'todos/todo_servico.html')
+from .models import Produto, Categoria, Fornecedor, MovimentacaoEstoque
 
 # View para a página de login
 def login_view(request):
@@ -46,7 +19,8 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)  # Realiza o login do usuário
-            return redirect('todo_servico')  # Redireciona para a página de serviços após o login
+            return redirect('produto_list')  # Redireciona para a página de produtos após o login
+
         else:
             # Caso falhe a autenticação
             messages.error(request, 'Usuário ou senha inválidos')
@@ -96,9 +70,6 @@ def cadastro_view(request):
             return render(request, 'todos/cadastro.html', {'error': f'Erro ao criar usuário: {str(e)}'})
     
     return render(request, 'todos/cadastro.html')
-
-def sobre_view(request):
-    return render(request, 'todos/sobre.html')
 
 class ProdutoListView(ListView):
     model = Produto

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Todo, Produto, Categoria, Fornecedor, MovimentacaoEstoque
+from .models import Produto, Categoria, Fornecedor, MovimentacaoEstoque
 
 @admin.register(Categoria)
 class CategoriaAdmin(admin.ModelAdmin):
@@ -26,4 +26,4 @@ class MovimentacaoEstoqueAdmin(admin.ModelAdmin):
     search_fields = ('produto__nome', 'observacao')
     readonly_fields = ('data',)
 
-admin.site.register(Todo)
+

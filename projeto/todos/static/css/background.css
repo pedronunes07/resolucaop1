@@ -1,0 +1,108 @@
+/* Estilo do fundo animado */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    animation: float 15s ease-in-out infinite;
+    opacity: 0.5;
+}
+
+.shape:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(45deg, #3DEBB0, #8956f3);
+    animation-delay: -2s;
+}
+
+.shape:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(45deg, #8956f3, #3DEBB0);
+    animation-delay: -4s;
+}
+
+.shape:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, #3DEBB0, #8956f3);
+    animation-delay: -6s;
+}
+
+.shape:nth-child(4) {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(45deg, #8956f3, #3DEBB0);
+    animation-delay: -8s;
+}
+
+.shape:nth-child(5) {
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(45deg, #3DEBB0, #8956f3);
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+    50% {
+        transform: translateY(0) rotate(10deg);
+    }
+    75% {
+        transform: translateY(20px) rotate(15deg);
+    }
+    100% {
+        transform: translateY(0) rotate(20deg);
+    }
+}
+
+/* Efeito de partículas */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: particle 10s linear infinite;
+}
+
+@keyframes particle {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(100vw, 100vh);
+        opacity: 0;
+    }
+}
