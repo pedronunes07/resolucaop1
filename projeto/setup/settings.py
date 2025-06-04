@@ -32,7 +32,16 @@ DEBUG = os.environ.get('DEBUG', '1') == '1'
 
 # ALLOWED_HOSTS = [] # Remova ou comente esta linha
 # Leia ALLOWED_HOSTS da variável de ambiente, dividindo por vírgula
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
+# Use uma lista vazia como padrão seguro em vez de localhost para evitar acidentalmente permitir qualquer host
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
+if ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ALLOWED_HOSTS.split(',')
+else:
+    ALLOWED_HOSTS = []
+
+# Adicione um log para depuração para ver o que ALLOWED_HOSTS está lendo
+print(f'DEBUG: ALLOWED_HOSTS lido do ambiente: {os.environ.get("ALLOWED_HOSTS")}')
+print(f'DEBUG: ALLOWED_HOSTS configurado no Django: {ALLOWED_HOSTS}')
 
 
 # Application definition
