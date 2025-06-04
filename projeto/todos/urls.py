@@ -4,10 +4,12 @@ from .views import (
     CategoriaListView, CategoriaCreateView, CategoriaUpdateView, CategoriaDeleteView,
     FornecedorListView, FornecedorCreateView, FornecedorUpdateView, FornecedorDeleteView,
     MovimentacaoEstoqueListView, movimentacao_estoque_create,
-    login_view, logout_view, cadastro_view
+    login_view, logout_view, cadastro_view,
+    teste_view
 )
 
 urlpatterns = [
+    path('', teste_view, name='teste'),
     path('produtos/', ProdutoListView.as_view(), name='produto_list'),
     path('produtos/novo/', ProdutoCreateView.as_view(), name='produto_create'),
     path('produtos/<int:pk>/editar/', ProdutoUpdateView.as_view(), name='produto_update'),

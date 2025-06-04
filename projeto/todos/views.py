@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.db.models import Sum, F
 from django.utils import timezone
 from .models import Produto, Categoria, Fornecedor, MovimentacaoEstoque
+from django.http import HttpResponse
 
 # View para a página de login
 def login_view(request):
@@ -239,3 +240,7 @@ def dashboard(request):
     }
     
     return render(request, 'todos/dashboard.html', context)
+
+# View de teste temporária
+def teste_view(request):
+    return HttpResponse("Hello, Render!")
