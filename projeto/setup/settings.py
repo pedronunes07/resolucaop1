@@ -149,3 +149,6 @@ LOGIN_REDIRECT_URL = '/servico/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+# Lida com cabeçalhos X-Forwarded-Proto e X-Forwarded-Host do proxy do Render
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
