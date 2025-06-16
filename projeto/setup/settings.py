@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'todos.apps.TodosConfig'
+    'todos.apps.TodosConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -131,9 +132,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Configurações de Mídia
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Remova ou comente esta linha
-# Leia MEDIA_ROOT da variável de ambiente, com um fallback para desenvolvimento local
-MEDIA_ROOT = os.environ.get('RENDER_MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
+# MEDIA_ROOT = os.environ.get('RENDER_MEDIA_ROOT', os.path.join(BASE_DIR, 'media')) # Remova ou comente esta linha
+
+# Configurações do Amazon S3
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME') # Ex: 'us-east-1'
+AWS_S3_FILE_OVERWRITE = False # Não sobrescrever arquivos existentes com o mesmo nome
+
+# Definir o sistema de arquivos padrão para mídias
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
